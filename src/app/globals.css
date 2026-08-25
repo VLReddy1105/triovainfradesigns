@@ -33,6 +33,11 @@
   /* Neutrals */
   --color-surface: #f8f9fb;
   --color-surface-alt: #f4f2ee;
+  --color-room-base: #d8c8b3;
+  --color-bronze-dark: #4a3325;
+  --color-bronze: #b08048;
+  --color-bronze-light: #d8b878;
+  --color-lamp-glow: #ffe1a2;
   --color-body: #555555;
   --color-muted: #6b6b6b;
   --color-hairline: #e2e2e6;
@@ -94,6 +99,519 @@
 
   .text-balance-heading {
     text-wrap: balance;
+  }
+
+  /* Home opening: two stable room states, sharing one background and lamp. */
+  .home-room-vignette {
+    background:
+      linear-gradient(180deg, rgb(8 20 36 / 0.24) 0%, transparent 16%),
+      radial-gradient(circle at 86% 36%, rgb(255 220 154 / 0.06), transparent 28%),
+      linear-gradient(90deg, rgb(7 19 35 / 0.08), transparent 36%, rgb(7 19 35 / 0.025));
+  }
+
+  .home-room-grain {
+    opacity: 0.1;
+    background-image: repeating-radial-gradient(
+      circle at 0 0,
+      rgb(25 18 12 / 0.2) 0,
+      transparent 1px,
+      transparent 3px
+    );
+    background-size: 4px 4px;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+
+  .home-background-image {
+    object-position: center center;
+  }
+
+  .home-scene {
+    pointer-events: none;
+  }
+
+  /* Mirrors the 1672 × 941 background's rendered cover box. Overlays placed
+     here stay registered to the architecture as the viewport crop changes. */
+  .home-wall-coordinate {
+    --home-wall-center-x: 43.39%;
+    --home-wall-safe-width: 44.5%;
+
+    top: 50%;
+    left: 50%;
+    width: max(100vw, 177.683svh);
+    height: max(100svh, 56.28vw);
+    transform: translate(-50%, -50%);
+  }
+
+  .home-wall-branding {
+    top: 20%;
+    left: var(--home-wall-center-x);
+    width: var(--home-wall-safe-width);
+    transform: translateX(-50%);
+    text-shadow: 0 1px 0 rgb(255 255 255 / 0.28);
+  }
+
+  .home-wall-logo-frame {
+    width: clamp(6.4rem, 7.7vw, 7.6rem);
+    height: clamp(6.4rem, 7.7vw, 7.6rem);
+    filter: drop-shadow(0 5px 9px rgb(25 30 34 / 0.13));
+  }
+
+  /* The source PNG has generous transparent padding; this scale lets the
+     visible emblem fill the declared wall-logo frame without distortion. */
+  .home-wall-logo {
+    top: 50% !important;
+    left: 50% !important;
+    width: 182% !important;
+    height: 182% !important;
+    max-width: none !important;
+    transform: translate(-50%, -50%);
+  }
+
+  .home-brand-name {
+    display: flex;
+    margin-top: 1.15rem;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .home-brand-primary {
+    color: var(--color-navy);
+    font-size: clamp(0.92rem, 1.08vw, 1.1rem);
+    font-weight: 800;
+    letter-spacing: 0.17em;
+  }
+
+  .home-brand-secondary {
+    margin-top: 0.34rem;
+    color: rgb(255 255 255 / 0.98);
+    font-size: clamp(0.68rem, 0.78vw, 0.8rem);
+    font-weight: 750;
+    letter-spacing: 0.25em;
+    text-shadow:
+      0 1px 2px rgb(0 0 0 / 0.2),
+      0 3px 10px rgb(0 0 0 / 0.13);
+  }
+
+  .home-locations {
+    margin-top: 1.35rem;
+    gap: 0.68rem;
+    font-size: clamp(0.72rem, 0.88vw, 0.86rem);
+    font-weight: 650;
+    letter-spacing: 0.085em;
+    line-height: 1.45;
+    text-transform: uppercase;
+  }
+
+  .home-location-separator {
+    margin-right: 0.68rem;
+    color: var(--color-gold-text);
+    font-weight: 800;
+  }
+
+  .home-wall-lettering {
+    max-width: 100%;
+    margin-top: 1.85rem;
+    font-size: clamp(2.9rem, 3.55vw, 4rem);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+    text-shadow:
+      0 1px 0 rgb(255 255 255 / 0.48),
+      0 2px 1px rgb(11 31 58 / 0.12),
+      0 8px 20px rgb(11 31 58 / 0.08);
+  }
+
+  .home-wall-lettering span {
+    display: block;
+  }
+
+  .home-pitch-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    color: var(--color-navy);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .home-pitch-eyebrow::before {
+    content: "";
+    width: 2.75rem;
+    height: 1px;
+    background: var(--color-gold-deep);
+  }
+
+  .home-lamp {
+    top: 0;
+    right: clamp(2.75rem, 6.7vw, 8rem);
+    width: clamp(8rem, 9.4vw, 10.5rem);
+    height: 76svh;
+    pointer-events: none;
+  }
+
+  .home-lamp-drop-layer,
+  .home-lamp-swing-layer,
+  .home-lamp-pendant {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 39svh;
+  }
+
+  .home-lamp-drop-layer {
+    will-change: transform, opacity;
+  }
+
+  .home-lamp-swing-layer {
+    transform-origin: 50% 0;
+    transform-box: fill-box;
+    will-change: transform;
+  }
+
+  .home-lamp-pendant {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .home-lamp-canopy {
+    position: relative;
+    z-index: 3;
+    width: 3.9rem;
+    height: 0.74rem;
+    border-radius: 0 0 999px 999px;
+    background: linear-gradient(90deg, #261710, #765037 42%, #bd8551 53%, #40271a 78%, #1f130e);
+    box-shadow:
+      inset 0 1px 1px rgb(255 224 186 / 0.35),
+      0 3px 9px rgb(31 20 12 / 0.28);
+  }
+
+  .home-lamp-cord {
+    width: 2px;
+    height: clamp(8.75rem, 23svh, 14.5rem);
+    border-radius: 999px;
+    background: linear-gradient(90deg, #21150f 0%, #9a704c 48%, #352016 100%);
+    box-shadow: 1px 0 1px rgb(255 227 190 / 0.16);
+  }
+
+  .home-lamp-shade {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: clamp(4.6rem, 5.25vw, 5.8rem);
+    filter:
+      saturate(0.95)
+      brightness(0.88)
+      drop-shadow(0 10px 10px rgb(29 17 10 / 0.2));
+    transition: filter 680ms var(--ease-out-soft);
+  }
+
+  .home-lamp[data-scene="2"] .home-lamp-shade {
+    filter:
+      saturate(1.02)
+      brightness(1.02)
+      drop-shadow(0 12px 14px rgb(56 32 16 / 0.26));
+  }
+
+  .home-lamp-shade::before {
+    position: absolute;
+    inset: 0 0 0.45rem;
+    clip-path: polygon(29% 0, 71% 0, 98% 91%, 100% 100%, 0 100%, 2% 91%);
+    background:
+      linear-gradient(90deg, rgb(255 238 209 / 0.09), transparent 20%, transparent 74%, rgb(19 10 6 / 0.28)),
+      radial-gradient(circle at 58% 23%, rgb(232 173 112 / 0.78), transparent 17%),
+      linear-gradient(104deg, #2b180f 0%, #57321e 18%, #9b6035 42%, #c18a55 55%, #714327 73%, #2b180f 100%);
+    box-shadow:
+      inset 12px 0 18px rgb(18 9 5 / 0.28),
+      inset -13px -4px 20px rgb(23 11 6 / 0.34),
+      inset 0 8px 12px rgb(255 219 176 / 0.08);
+    content: "";
+  }
+
+  .home-lamp-specular {
+    position: absolute;
+    z-index: 2;
+    top: 14%;
+    left: 53%;
+    width: 9%;
+    height: 61%;
+    transform: skewX(-7deg);
+    border-radius: 50%;
+    background: linear-gradient(90deg, transparent, rgb(255 224 183 / 0.38), transparent);
+    filter: blur(1.5px);
+    opacity: 0.82;
+  }
+
+  .home-lamp-rim {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: grid;
+    width: 100%;
+    height: 1.12rem;
+    place-items: center;
+    border: 2px solid #2b180f;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, #fff0c9 0%, #f5bd68 42%, #61371e 70%, #20110b 100%);
+    box-shadow:
+      inset 0 4px 7px rgb(35 16 7 / 0.62),
+      0 2px 2px rgb(17 9 5 / 0.28);
+  }
+
+  .home-lamp-bulb {
+    width: 51%;
+    height: 0.52rem;
+    border-radius: 50%;
+    background: #fff4cf;
+    box-shadow:
+      0 1px 8px #ffd17a,
+      0 7px 24px rgb(255 193 86 / 0.78);
+  }
+
+  .home-lamp-aura {
+    position: absolute;
+    z-index: 1;
+    top: calc(clamp(8.75rem, 23svh, 14.5rem) + 3.65rem);
+    left: 50%;
+    width: 13rem;
+    height: 7.5rem;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgb(255 214 139 / 0.88), rgb(255 202 108 / 0.18) 45%, transparent 72%);
+    filter: blur(20px);
+  }
+
+  .home-lamp-cone {
+    position: absolute;
+    z-index: -1;
+    top: 25svh;
+    left: 50%;
+    width: min(29vw, 27rem);
+    height: 57svh;
+    transform: translateX(-50%);
+    border-radius: 46% 46% 52% 52%;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgb(255 224 164 / 0.47), rgb(255 218 143 / 0.11) 42%, transparent 72%);
+    filter: blur(27px);
+  }
+
+  .home-lamp-room-glow {
+    position: absolute;
+    z-index: -1;
+    top: 18svh;
+    left: 50%;
+    width: min(38vw, 35rem);
+    height: 68svh;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background:
+      radial-gradient(ellipse, rgb(255 215 143 / 0.22), rgb(255 224 173 / 0.07) 48%, transparent 72%);
+    filter: blur(34px);
+  }
+
+  .home-sofa-anchor {
+    bottom: clamp(0.6rem, 2svh, 1.5rem);
+    left: clamp(2.25rem, 4.2vw, 5rem);
+    width: min(50vw, 54rem);
+    transform-origin: bottom left;
+    will-change: transform;
+  }
+
+  .home-sofa-shadow {
+    position: absolute;
+    z-index: 0;
+    right: 3%;
+    bottom: 0;
+    left: 3%;
+    height: 12%;
+    border-radius: 50%;
+    background: rgb(33 24 17 / 0.34);
+    filter: blur(18px);
+    transform: translateY(28%);
+  }
+
+  .home-consultant {
+    right: 16.5%;
+    bottom: -1.5%;
+    width: 31%;
+    opacity: 1;
+  }
+
+  .home-pitch {
+    top: 39%;
+    right: clamp(3.5rem, 7vw, 8.5rem);
+    width: min(31vw, 30rem);
+    pointer-events: auto;
+  }
+
+  .home-scroll-cue {
+    right: clamp(1.1rem, 2vw, 2rem);
+    bottom: 2.5rem;
+    color: var(--color-navy);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+  }
+
+  .home-scroll-line {
+    width: 1px;
+    height: 3.5rem;
+    background: linear-gradient(var(--color-gold-deep), transparent);
+  }
+}
+
+@media (max-width: 1023px) {
+  .home-sofa-anchor {
+    bottom: 2svh;
+    left: 2.25rem;
+    width: min(54vw, 38rem);
+  }
+
+  .home-pitch {
+    top: 37%;
+    right: 3.25rem;
+    width: min(34vw, 25rem);
+  }
+
+  .home-lamp {
+    right: 4vw;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-background-image {
+    object-position: 48% center;
+  }
+
+  .home-wall-coordinate {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: none;
+  }
+
+  .home-wall-branding {
+    top: 22%;
+    left: 50%;
+    width: calc(100vw - 3rem);
+    transform: translateX(-50%);
+  }
+
+  .home-wall-logo-frame {
+    width: clamp(5.6rem, 25vw, 6.5rem);
+    height: clamp(5.6rem, 25vw, 6.5rem);
+  }
+
+  .home-brand-name {
+    margin-top: 0.9rem;
+  }
+
+  .home-brand-primary {
+    font-size: 0.82rem;
+  }
+
+  .home-brand-secondary {
+    font-size: 0.62rem;
+  }
+
+  .home-locations {
+    margin-top: 1rem;
+    gap: 0.4rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.055em;
+  }
+
+  .home-location-separator {
+    margin-right: 0.38rem;
+  }
+
+  .home-wall-lettering {
+    max-width: 9.5em;
+    margin-top: 1.35rem;
+    font-size: clamp(2rem, 10vw, 2.8rem);
+    line-height: 1;
+  }
+
+  .home-lamp {
+    right: -0.25rem;
+    width: 6.2rem;
+    height: 62svh;
+  }
+
+  .home-lamp-drop-layer,
+  .home-lamp-swing-layer,
+  .home-lamp-pendant {
+    height: 29svh;
+  }
+
+  .home-lamp-cord {
+    height: 14svh;
+  }
+
+  .home-lamp-shade {
+    height: 3.8rem;
+  }
+
+  .home-lamp-aura {
+    top: calc(14svh + 2.8rem);
+    width: 9rem;
+  }
+
+  .home-lamp-cone {
+    top: 18svh;
+    width: 54vw;
+    height: 58svh;
+  }
+
+  .home-sofa-anchor {
+    bottom: 6svh;
+    left: 2vw;
+    width: 96vw;
+  }
+
+  .home-consultant {
+    right: 16.5%;
+    width: 31%;
+  }
+
+  .home-pitch {
+    top: 16%;
+    right: auto;
+    left: 1.25rem;
+    width: calc(100vw - 2.5rem);
+  }
+
+  .home-pitch h2 {
+    max-width: 17ch;
+    font-size: clamp(1.5rem, 6.6vw, 2.05rem);
+  }
+
+  .home-pitch p:not(.home-pitch-eyebrow) {
+    max-width: 30rem;
+    font-size: 0.75rem;
+  }
+
+  .home-scroll-cue {
+    right: 1rem;
+    bottom: 5.5rem;
+  }
+
+  .home-room-vignette {
+    background:
+      linear-gradient(180deg, rgb(8 20 36 / 0.35) 0%, transparent 17%),
+      linear-gradient(90deg, rgb(7 19 35 / 0.1), transparent 75%);
   }
 }
 
