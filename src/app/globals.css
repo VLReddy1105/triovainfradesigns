@@ -1,26 +1,113 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================
+   Triova design tokens — the single source of truth for colour,
+   spacing, radii and shadow. Components reference these only.
+   ============================================================ */
+@theme {
+  /* Brand */
+  --color-navy: #0b1f3a;
+  --color-navy-bright: #0b3b7a;
+  --color-ink: #111111;
+  --color-ink-soft: #1b1b1b;
+
+  --color-gold: #d4af37;
+  --color-gold-deep: #c9a227;
+  --color-gold-soft: #c8a35f;
+  /* Darkened gold for text on light backgrounds — #d4af37 on white is
+     only 1.9:1 and fails WCAG AA. This variant clears 4.9:1. */
+  --color-gold-text: #8a6d1a;
+
+  /* Status + third-party brand colours.
+     WhatsApp green is darkened from the brand #25D366 so white label text
+     clears 5.4:1 instead of failing at 1.8:1. */
+  --color-whatsapp: #0f7a40;
+  --color-whatsapp-dark: #0c6534;
+  --color-success-bg: #e7f5ec;
+  --color-success-fg: #14532d;
+  --color-error-bg: #fdecea;
+  --color-error-fg: #8c1d18;
+  --color-error-strong: #b3261e;
+  --color-error-on-dark: #ffb4a8;
+
+  /* Neutrals */
+  --color-surface: #f8f9fb;
+  --color-surface-alt: #f4f2ee;
+  --color-body: #555555;
+  --color-muted: #6b6b6b;
+  --color-hairline: #e2e2e6;
+
+  /* Type */
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+
+  /* Radii — the original site's pill buttons and very round cards */
+  --radius-card: 1.5rem;
+  --radius-panel: 1.75rem;
+  --radius-pill: 62.5rem;
+
+  /* Elevation */
+  --shadow-card: 0 12px 35px rgb(0 0 0 / 0.08);
+  --shadow-card-hover: 0 25px 60px rgb(0 0 0 / 0.16);
+  --shadow-panel: 0 20px 50px rgb(0 0 0 / 0.12);
+  --shadow-gold: 0 12px 30px rgb(212 175 55 / 0.35);
+
+  /* Rhythm */
+  --spacing-section: 6rem;
+  --spacing-section-lg: 7.5rem;
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* clears the fixed header when jumping to an anchor */
+    scroll-padding-top: 6rem;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background-color: var(--color-white);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Visible, consistent focus ring on every interactive element */
+  :focus-visible {
+    outline: 3px solid var(--color-gold-deep);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--color-gold);
+    color: var(--color-navy);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  /* Page gutter — the original used a flat 8% */
+  .gutter {
+    padding-inline: clamp(1.25rem, 6vw, 5rem);
+  }
+
+  .text-balance-heading {
+    text-wrap: balance;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
