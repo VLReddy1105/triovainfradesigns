@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/Hero";
+import { ArchitecturalStory } from "@/components/architecture/ArchitecturalStory";
 import { TrustBar } from "@/components/sections/TrustBar";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { ServicesGrid } from "@/components/sections/ServicesGrid";
@@ -25,6 +26,7 @@ export default function HomePage() {
     <>
       <FaqJsonLd faqs={homeFaqs} />
       <Hero />
+      <ArchitecturalStory />
       <TrustBar />
       <AboutSection />
       <ServicesGrid />

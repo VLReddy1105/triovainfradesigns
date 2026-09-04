@@ -1,0 +1,381 @@
+.story {
+  --architecture-exit: 0;
+  --architecture-progress: 0;
+  --architecture-scale: 1.03;
+  --architecture-title-opacity: 0;
+  --architecture-title-shift: 20px;
+  position: relative;
+  z-index: 0;
+  height: 520svh;
+  margin-block-end: -10svh;
+  background: #15191b;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  background: #15191b;
+  color: white;
+}
+
+.media {
+  position: absolute;
+  inset: -4%;
+  transform: translate3d(0, calc(var(--architecture-exit) * -4svh), 0)
+    scale(var(--architecture-scale));
+  transform-origin: 58% 50%;
+  will-change: transform;
+}
+
+.canvas {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.story[data-sequence-ready="true"] .canvas {
+  opacity: 1;
+}
+
+.loading {
+  position: absolute;
+  bottom: 9%;
+  left: clamp(1.5rem, 6vw, 6rem);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: rgb(255 255 255 / 0.64);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 1;
+  transition: opacity 400ms ease;
+}
+
+.story[data-sequence-ready="true"] .loading {
+  opacity: 0;
+}
+
+.story[data-sequence-error="true"] .loading {
+  opacity: 1;
+}
+
+.loadingLine {
+  width: 2.5rem;
+  height: 1px;
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.24);
+}
+
+.loadingLine::after {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: translateX(-100%);
+  background: #d4af37;
+  animation: loading 1.2s ease-in-out infinite;
+  content: "";
+}
+
+.imageGrade,
+.titleScrim,
+.endWash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.imageGrade {
+  background:
+    linear-gradient(180deg, rgb(5 9 10 / 0.18), transparent 28%, transparent 68%, rgb(5 8 8 / 0.24)),
+    radial-gradient(circle at 68% 47%, transparent 32%, rgb(7 10 10 / 0.13) 100%);
+}
+
+.titleScrim {
+  background: linear-gradient(
+    90deg,
+    rgb(9 14 15 / 0.62) 0%,
+    rgb(9 14 15 / 0.28) 27%,
+    transparent 52%
+  );
+}
+
+.copy {
+  position: absolute;
+  top: 50%;
+  left: clamp(1.5rem, 6vw, 6rem);
+  z-index: 2;
+  width: min(36rem, 44vw);
+  transform: translate3d(0, calc(-50% + var(--architecture-title-shift)), 0);
+  opacity: var(--architecture-title-opacity);
+  will-change: opacity, transform;
+}
+
+.locations {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: start;
+  margin-bottom: clamp(1.4rem, 3vh, 2.1rem);
+  color: #e7c978;
+  font-size: clamp(0.68rem, 0.8vw, 0.78rem);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.architectureLabel {
+  display: flex;
+  align-items: center;
+}
+
+.architectureLabel::before {
+  width: clamp(2.5rem, 5vw, 4.5rem);
+  height: 1px;
+  margin-right: 0.9rem;
+  background: currentColor;
+  content: "";
+}
+
+.architectureLabel::after {
+  margin-inline: 0.7rem 0.8rem;
+  content: "·";
+}
+
+.cityList {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.24rem;
+}
+
+.city {
+  display: block;
+  transform: translate3d(0, var(--city-shift, 10px), 0);
+  opacity: var(--city-opacity, 0);
+  will-change: opacity, transform;
+}
+
+.brandLockup {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 1.6vw, 1.4rem);
+}
+
+.logoFrame {
+  width: clamp(4.5rem, 5.7vw, 5.75rem);
+  aspect-ratio: 1;
+  flex: none;
+}
+
+.wordmark {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  text-shadow: 0 7px 28px rgb(0 0 0 / 0.18);
+}
+
+.brandName {
+  font-size: clamp(2.65rem, 4.7vw, 4.8rem);
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+}
+
+.brandDescriptor {
+  margin-top: clamp(0.6rem, 1.2vh, 0.85rem);
+  color: #e7c978;
+  font-size: clamp(0.68rem, 0.88vw, 0.86rem);
+  font-weight: 650;
+  letter-spacing: 0.3em;
+}
+
+.taglineViewport {
+  position: relative;
+  min-height: 4.5rem;
+  margin-top: clamp(1.6rem, 3.4vh, 2.6rem);
+}
+
+.tagline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 30rem;
+  transform: translate3d(0, var(--tagline-shift, 8px), 0);
+  color: rgb(255 255 255 / 0.82);
+  font-size: clamp(1.08rem, 1.45vw, 1.4rem);
+  font-weight: 300;
+  line-height: 1.5;
+  letter-spacing: 0.015em;
+  opacity: var(--tagline-opacity, 0);
+  will-change: opacity, transform;
+}
+
+.endWash {
+  z-index: 3;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgb(248 249 251 / 0.08) 45%,
+    rgb(255 255 255 / 0.82) 88%,
+    white 100%
+  );
+  opacity: var(--architecture-exit);
+}
+
+@keyframes loading {
+  50%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  .copy {
+    left: 4vw;
+    width: min(31rem, 47vw);
+  }
+
+  .locations {
+    font-size: 0.62rem;
+  }
+
+  .architectureLabel::before {
+    width: 2.5rem;
+  }
+
+  .logoFrame {
+    width: 4.25rem;
+  }
+
+  .brandName {
+    font-size: clamp(2.5rem, 4.5vw, 3.3rem);
+  }
+
+  .tagline {
+    font-size: 1.04rem;
+  }
+}
+
+@media (max-width: 767px), (max-aspect-ratio: 3 / 4) {
+  .story {
+    height: 440svh;
+    margin-block-end: -8svh;
+  }
+
+  .media {
+    inset: -3%;
+    transform-origin: 60% 50%;
+  }
+
+  .titleScrim {
+    background: linear-gradient(
+      180deg,
+      rgb(8 12 13 / 0.46) 0%,
+      rgb(8 12 13 / 0.17) 42%,
+      transparent 68%
+    );
+  }
+
+  .copy {
+    top: 11.5%;
+    left: 1.25rem;
+    width: calc(100% - 2.5rem);
+    transform: translate3d(0, var(--architecture-title-shift), 0);
+  }
+
+  .locations {
+    display: block;
+    margin-bottom: 1.1rem;
+    font-size: 0.6rem;
+    line-height: 1.4;
+    letter-spacing: 0.18em;
+  }
+
+  .architectureLabel::before {
+    width: 2rem;
+    margin-right: 0.65rem;
+  }
+
+  .architectureLabel::after {
+    display: none;
+  }
+
+  .cityList {
+    display: flex;
+    margin-top: 0.4rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.55rem;
+    padding-left: 2.65rem;
+  }
+
+  .city:not(:first-child)::before {
+    margin-right: 0.55rem;
+    content: "·";
+  }
+
+  .brandLockup {
+    gap: 0.8rem;
+  }
+
+  .logoFrame {
+    width: 3.35rem;
+  }
+
+  .brandName {
+    font-size: clamp(2rem, 10.5vw, 2.65rem);
+  }
+
+  .brandDescriptor {
+    margin-top: 0.48rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.27em;
+  }
+
+  .taglineViewport {
+    min-height: 4.2rem;
+    margin-top: 1.25rem;
+  }
+
+  .tagline {
+    max-width: 20rem;
+    font-size: 0.95rem;
+    line-height: 1.42;
+  }
+
+  .loading {
+    bottom: 10%;
+    left: 1.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story {
+    height: 100svh;
+    min-height: 38rem;
+    margin-block-end: 0;
+  }
+
+  .sticky {
+    position: relative;
+  }
+
+  .media {
+    transform: none;
+    will-change: auto;
+  }
+
+  .canvas {
+    transition: none;
+  }
+
+  .loadingLine::after {
+    animation: none;
+  }
+}

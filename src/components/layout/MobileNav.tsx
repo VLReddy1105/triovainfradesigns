@@ -6,6 +6,7 @@ import { Mail, Phone, X } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useLockBodyScroll } from "@/hooks/useLockBodyScroll";
+import { Logo } from "@/components/layout/Logo";
 import { navLinks, site } from "@/data/site";
 import { cn } from "@/lib/utils";
 
@@ -47,7 +48,7 @@ export function MobileNav({ open, onClose, pathname, labelledBy }: MobileNavProp
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="fixed inset-0 z-40 bg-black/60 lg:hidden"
+            className="mobile-nav-scrim fixed inset-0 z-40 lg:hidden"
             aria-hidden="true"
           />
 
@@ -62,12 +63,17 @@ export function MobileNav({ open, onClose, pathname, labelledBy }: MobileNavProp
             animate={reduceMotion ? { opacity: 1 } : { x: 0 }}
             exit={reduceMotion ? { opacity: 0 } : { x: "100%" }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="bg-navy fixed top-0 right-0 z-50 flex h-dvh w-[86%] max-w-sm flex-col overflow-y-auto px-7 pt-6 pb-10 lg:hidden"
+            className="mobile-nav-glass fixed top-0 right-0 z-50 flex h-dvh w-[86%] max-w-sm flex-col overflow-x-hidden overflow-y-auto px-7 pt-6 pb-10 lg:hidden"
           >
             <div className="flex items-center justify-between">
-              <span className="text-gold text-sm font-semibold tracking-[0.2em] uppercase">
-                Menu
-              </span>
+              <Link
+                href="/"
+                onClick={onClose}
+                aria-label={`${site.name} — home`}
+                className="min-w-0 shrink"
+              >
+                <Logo size="sm" />
+              </Link>
               <button
                 type="button"
                 onClick={onClose}

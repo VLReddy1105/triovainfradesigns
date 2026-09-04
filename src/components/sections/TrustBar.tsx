@@ -31,7 +31,7 @@ export function TrustBar() {
   return (
     <section
       aria-label="Triova by the numbers"
-      className="border-gold/35 gutter border-y bg-white py-14"
+      className="border-gold/35 gutter relative z-10 border-b bg-white py-14"
     >
       <ul className="mx-auto grid max-w-[81.25rem] grid-cols-2 gap-10 lg:grid-cols-4">
         {stats.map((stat) => (
