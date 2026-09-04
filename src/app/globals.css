@@ -64,6 +64,111 @@
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+@layer components {
+  .site-header-glass {
+    border-bottom: 1px solid rgb(255 255 255 / 0.11);
+    background: linear-gradient(
+      180deg,
+      rgb(6 17 33 / 0.64),
+      rgb(8 22 41 / 0.48)
+    );
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.04) inset,
+      0 12px 34px rgb(2 8 18 / 0.14);
+    backdrop-filter: blur(14px) saturate(145%);
+    -webkit-backdrop-filter: blur(14px) saturate(145%);
+  }
+
+  .site-header-glass[data-scrolled="true"] {
+    border-bottom-color: rgb(255 255 255 / 0.14);
+    background: linear-gradient(
+      180deg,
+      rgb(6 17 33 / 0.78),
+      rgb(8 22 41 / 0.66)
+    );
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.05) inset,
+      0 14px 38px rgb(2 8 18 / 0.2);
+  }
+
+  .site-nav-dropdown {
+    border: 1px solid rgb(255 255 255 / 0.11);
+    background: rgb(7 20 38 / 0.9);
+    box-shadow: 0 20px 45px rgb(2 8 18 / 0.24);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+
+  .phone-cta {
+    box-shadow: 0 8px 22px rgb(212 175 55 / 0.2);
+  }
+
+  .phone-cta:hover {
+    box-shadow: 0 10px 28px rgb(212 175 55 / 0.3);
+  }
+
+  .mobile-nav-scrim {
+    background: rgb(2 8 18 / 0.64);
+  }
+
+  .mobile-nav-glass {
+    border-left: 1px solid rgb(255 255 255 / 0.13);
+    background: linear-gradient(
+      155deg,
+      rgb(8 23 43 / 0.94),
+      rgb(5 15 29 / 0.86)
+    );
+    box-shadow: -22px 0 52px rgb(2 8 18 / 0.28);
+    backdrop-filter: blur(18px) saturate(145%);
+    -webkit-backdrop-filter: blur(18px) saturate(145%);
+  }
+
+  .triova-brand-mark {
+    position: relative;
+    display: block;
+    flex: none;
+    overflow: hidden;
+    aspect-ratio: 1;
+  }
+
+  .triova-brand-mark-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 182%;
+    height: 182%;
+    max-width: none;
+    transform: translate3d(-50%, -50%, 0);
+    object-fit: contain;
+  }
+
+  .triova-brand-mark-on-dark .triova-brand-mark-image {
+    filter:
+      brightness(1.32)
+      contrast(1.08)
+      drop-shadow(0 1px 1px rgb(255 255 255 / 0.22))
+      drop-shadow(0 5px 11px rgb(0 0 0 / 0.28));
+  }
+
+  .triova-brand-mark-on-light .triova-brand-mark-image {
+    filter:
+      brightness(1.06)
+      contrast(1.1)
+      drop-shadow(0 5px 9px rgb(25 30 34 / 0.15));
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .site-header-glass,
+    .site-header-glass[data-scrolled="true"] {
+      background: rgb(7 20 38 / 0.94);
+    }
+
+    .mobile-nav-glass {
+      background: rgb(7 20 38 / 0.98);
+    }
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -154,18 +259,6 @@
   .home-wall-logo-frame {
     width: clamp(6.4rem, 7.7vw, 7.6rem);
     height: clamp(6.4rem, 7.7vw, 7.6rem);
-    filter: drop-shadow(0 5px 9px rgb(25 30 34 / 0.13));
-  }
-
-  /* The source PNG has generous transparent padding; this scale lets the
-     visible emblem fill the declared wall-logo frame without distortion. */
-  .home-wall-logo {
-    top: 50% !important;
-    left: 50% !important;
-    width: 182% !important;
-    height: 182% !important;
-    max-width: none !important;
-    transform: translate(-50%, -50%);
   }
 
   .home-brand-name {

@@ -1,19 +1,15 @@
-import Image from "next/image";
+import { BrandMark } from "@/components/layout/Logo";
 
 const locations = ["Hyderabad", "Vijayawada", "Vizag", "Bangalore"];
 
 export function WallBranding() {
   return (
     <div className="home-wall-branding absolute text-center">
-      <span className="home-wall-logo-frame relative mx-auto block">
-        <Image
-          src="/images/logo.png"
-          alt=""
-          fill
-          sizes="120px"
-          className="home-wall-logo object-contain"
-        />
-      </span>
+      <BrandMark
+        appearance="on-light"
+        sizes="120px"
+        className="home-wall-logo-frame mx-auto"
+      />
 
       <p className="home-brand-name text-navy">
         <span className="home-brand-primary">TRIOVA</span>

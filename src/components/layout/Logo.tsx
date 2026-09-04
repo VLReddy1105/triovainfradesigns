@@ -9,37 +9,56 @@ interface LogoProps {
   priority?: boolean;
 }
 
+interface BrandMarkProps {
+  /** Describes the surface behind the transparent mark. */
+  appearance?: "on-dark" | "on-light";
+  className?: string;
+  priority?: boolean;
+  sizes?: string;
+}
+
 const sizes = {
-  sm: { box: "size-11 p-1.5", name: "text-base", sub: "text-[0.6rem]" },
-  md: { box: "size-14 p-2", name: "text-lg", sub: "text-[0.65rem]" },
-  lg: { box: "size-16 p-2.5", name: "text-xl", sub: "text-[0.7rem]" },
+  sm: { box: "size-11", name: "text-base", sub: "text-[0.6rem]" },
+  md: { box: "size-14", name: "text-lg", sub: "text-[0.65rem]" },
+  lg: { box: "size-16", name: "text-xl", sub: "text-[0.7rem]" },
 } as const;
 
-/**
- * The brand mark is navy-on-transparent, so it needs a light plate to stay
- * legible against the navy header and near-black footer.
- */
+export function BrandMark({
+  appearance = "on-dark",
+  className,
+  priority = false,
+  sizes = "64px",
+}: BrandMarkProps) {
+  return (
+    <span
+      className={cn(
+        "triova-brand-mark",
+        appearance === "on-dark"
+          ? "triova-brand-mark-on-dark"
+          : "triova-brand-mark-on-light",
+        className,
+      )}
+      aria-hidden="true"
+    >
+      <Image
+        src="/images/logo.png"
+        alt=""
+        width={512}
+        height={512}
+        priority={priority}
+        sizes={sizes}
+        className="triova-brand-mark-image"
+      />
+    </span>
+  );
+}
+
 export function Logo({ size = "md", className, priority = false }: LogoProps) {
   const scale = sizes[size];
 
   return (
     <span className={cn("flex items-center gap-3", className)}>
-      <span
-        className={cn(
-          "grid shrink-0 place-items-center rounded-2xl bg-white",
-          scale.box,
-        )}
-      >
-        <Image
-          src="/images/logo.png"
-          alt=""
-          width={512}
-          height={512}
-          priority={priority}
-          sizes="64px"
-          className="size-full object-contain"
-        />
-      </span>
+      <BrandMark className={scale.box} priority={priority} />
 
       <span className="flex flex-col leading-none">
         <span

@@ -38,11 +38,9 @@ export function Header() {
       </a>
 
       <header
+        data-scrolled={scrolled}
         className={cn(
-          "ease-out-soft fixed inset-x-0 top-0 z-50 transition-all duration-400",
-          scrolled
-            ? "bg-navy/95 shadow-panel backdrop-blur-md"
-            : "bg-gradient-to-b from-black/75 via-black/35 to-transparent",
+          "site-header-glass ease-out-soft fixed inset-x-0 top-0 z-50 transition-all duration-400",
           hidden && !menuOpen && "-translate-y-full",
         )}
       >
@@ -79,12 +77,12 @@ export function Header() {
                   </Link>
 
                   {link.children ? (
-                    <ul className="shadow-panel invisible absolute top-full left-0 w-64 rounded-2xl bg-white p-2 opacity-0 transition-all duration-200 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+                    <ul className="site-nav-dropdown invisible absolute top-full left-0 w-64 rounded-2xl p-2 opacity-0 transition-all duration-200 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
                       {link.children.map((child) => (
                         <li key={child.href}>
                           <Link
                             href={child.href}
-                            className="text-ink hover:bg-surface hover:text-navy-bright block rounded-xl px-4 py-3 text-sm font-medium transition"
+                            className="block rounded-xl px-4 py-3 text-sm font-medium text-white/80 transition hover:bg-white/10 hover:text-white"
                           >
                             {child.label}
                           </Link>
@@ -100,7 +98,7 @@ export function Header() {
           <div className="flex items-center gap-3">
             <a
               href={`tel:${primaryPhone.raw}`}
-              className="rounded-pill bg-gold text-navy hover:bg-gold-deep hidden items-center gap-2 px-5 py-2.5 text-sm font-semibold transition lg:inline-flex"
+              className="phone-cta rounded-pill bg-gold text-navy hover:bg-gold-deep hidden items-center gap-2 px-5 py-2.5 text-sm font-semibold transition lg:inline-flex"
             >
               <Phone className="size-4" aria-hidden="true" />
               {primaryPhone.display}
